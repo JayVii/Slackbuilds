@@ -1,0 +1,11 @@
+vlc
+==================================================================
+
+vlc media player is a free and open source media player and multi-
+media framework written by the videolan project. vlc is a portable
+multimedia player, encoder, and streamer supporting many audio and
+video codecs and file formats as well as dvds, vcds, and various
+streaming protocols. it is able to stream over networks and to
+transcode multimedia files and save them into various formats.
+---
+Homepage: http://www.videolan.org/vlc/

@@ -1,0 +1,8 @@
+gnome-terminal
+==================================================================
+
+This is the GNOME terminal emulator application. gnome-terminal
+is only the shell or application itself. the terminal emulation
+comes from the VTE widget.
+---
+Homepage: https://gnome.org

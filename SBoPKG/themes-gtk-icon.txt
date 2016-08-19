@@ -1,0 +1,36 @@
+themes-gtk-icons
+==================================================================
+
+collection of several gtk- and icon-themes for a variance of
+different desktops.
+includes:
+01. murrine
+02. revival
+03. boje
+04. bunsen
+05. cathexis
+06. clearlooks-classic
+07. clearlooks-phenix
+08. gnome-extras
+09. moka
+10. siva
+11. alphacube
+12. numix
+13. orchis
+14. paper
+15. vivacious
+16. awoken icons
+17. faba icons
+18. faba-mono icons
+19. faenza icons
+20. kfaenza icons
+21. faience icons
+22. meliae icons
+23. moka icons
+24. moka-minimal icons
+25. numix icons
+26. numix-bevel icons
+27. numix-circle icons
+28. vivacious icons
+---
+

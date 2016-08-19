@@ -1,0 +1,8 @@
+rstudio
+==================================================================
+
+rstudio is a cross-platform ide for the r statistical computing
+environment. it is available in desktop and server versions.
+this builds the linux desktop version.
+---
+Homepage: http://www.rstudio.com

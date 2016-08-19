@@ -1,0 +1,9 @@
+lumina-desktop
+==================================================================
+
+the lumina desktop environment (lumina for short) is a
+lightweight, xdg-compliant, bsd-licensed desktop environment that
+focuses specifically on streamlining the ability to get work done
+while minimizing system overhead.
+---
+Homepage: http://lumina-desktop.org/
