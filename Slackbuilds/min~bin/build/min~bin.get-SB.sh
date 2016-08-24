@@ -1,6 +1,6 @@
 #!/bin/env sh
 #### CONFIG ####
-SB_PKG="min"
+SB_PKG="min~bin"
 SB_VER="1.4.1"
 SB_EXT="tar.gz"
 SB_SOURCE="https://github.com/minbrowser/${SB_PKG}/archive/v${SB_VER}.${SB_EXT}"

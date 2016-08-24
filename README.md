@@ -16,6 +16,10 @@ Folder `Slackbuilds/` contains several Slackbuilds in the style of the ones foun
 Its `pkg/` directory contains a pre-compiled binary - **USE AT YOUR OWN RISK**.
 The *safer* way is to build it yourself with the help of the Slackbuild in the `build/` directory. That one also contains a `*.get-SB.sh` script which can be used to fetch all necessary build-files (\*.SlackBuild, \*.desc and the source-code or convertable binary).
 
+#### Slackbuilds-Sidenote
+The name of the folders inside `Slackbuilds/` represent packages. Folders with a _~bin_ attached are Slackbuilds that do not build from sourcecode, but converting already compiled packages into Slackware-conform _.tgz_ archives.
+Example: `Slackbuilds/min~bin/`
+
 
 ### Structure
 ```
