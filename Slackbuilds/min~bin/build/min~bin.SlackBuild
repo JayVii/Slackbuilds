@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# JayVii <janwey.git@gmail.com> (https://notabug.org/jayvii/Slackbuilds)
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that it still licensed under the GNU Public License 2
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+SB_PKG="min~bin"
+SB_EXT=".deb"
+PKGNAME="min"
+VERSION="1.4.1"
+ARCH="$(uname -m)"
+case "$ARCH" in
+	i?86) ARCH="i386" ;;
+	x86_64) ARCH="amd64" ;;
+	*) echo "There is no package for your architecture: $(uname -m)." ; exit 1 ;;
+esac
+
+CWD="$(pwd)"
+TRG="/tmp"
+BUILDD="${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+
+if [ ! "$(whoami)" = "root" ]; then
+	echo "ERROR!"
+	echo "This script has to be run as root."
+	exit 1;
+fi
+if [ ! "$(ls ${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT} 1> /dev/null 2> /dev/null)" ]; then
+	echo "${SB_PKG}_${ARCH}-source.${SB_EXT} does not exist in the current directory."
+	echo "Please download it or move it to the appropriate directory."
+	echo "You can use the ${SB_PKG}.get-SB.sh script to automate this."
+	exit 1;
+fi
+
+# extract
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+mkdir -p "${BUILDD}/"
+cd "${BUILDD}/"
+ar p "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.deb" "data.tar.xz" | tar xJv || exit 1
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+chmod 0755 .
+
+# description
+mkdir -p "${BUILDD}/install"
+cat "$CWD/${SB_PKG}.desc" > "${BUILDD}/install/slack-desc"
+
+# misc
+mv "${BUILDD}/usr/share/min/LICENSE" "${BUILDD}/usr/share/doc/min/LICENSE"
+
+
+# creating package
+cd "${BUILDD}"
+/sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${ARCH}-JSB.txz"
+
+# ending
+echo ""
+echo "Slackbuild ran through. Install with:"
+echo "upgradepkg --install-new ${TRG}/${PKGNAME-${VERSION}_${ARCH}-JSB.txz"
