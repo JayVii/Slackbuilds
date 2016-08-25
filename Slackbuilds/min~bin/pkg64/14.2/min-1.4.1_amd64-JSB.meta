@@ -1,0 +1,19 @@
+PACKAGE NAME: min-1.4.1_amd64.txz
+PACKAGE LOCATION: ./min\~bin/pkg64/14.2
+PACKAGE SIZE: 35874808 K
+PACKAGE REQUIRED:
+PACKAGE SUGGESTS:
+PACKAGE CONFLICTS:
+PACKAGE DESCRIPTION:
+min~bin min~bin (repackaged binary of the min webbrowser)
+min~bin
+min~bin meet min. a faster, smarter web browser.
+min~bin built on top of electron and nodejs. featuring instant-search,
+min~bin effortless tab-managing, built-in adblock, minimal design
+min~bin opensource and available from github
+min~bin https://github.com/minbrowser/min
+min~bin
+min~bin
+min~bin Homepage: https://minbrowser.github.io/min/
+min~bin
+
