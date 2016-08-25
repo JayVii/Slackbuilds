@@ -31,7 +31,7 @@ Example: `Slackbuilds/min~bin/`
 |
 '- Slackbuilds/
    |- .../
-   |  |- pkg/
+   |  |- pkg64/
    |  |  '-%VER%/
    |  |    |- *.lst
    |  |    |- *.meta
