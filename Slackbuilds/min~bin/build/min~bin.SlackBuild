@@ -17,7 +17,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 SB_PKG="min~bin"
-SB_EXT=".deb"
+SB_EXT="deb"
 PKGNAME="min"
 VERSION="1.4.1"
 ARCH="$(uname -m)"
@@ -36,8 +36,8 @@ if [ ! "$(whoami)" = "root" ]; then
 	echo "This script has to be run as root."
 	exit 1;
 fi
-if [ ! "$(ls ${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT} 1> /dev/null 2> /dev/null)" ]; then
-	echo "${SB_PKG}_${ARCH}-source.${SB_EXT} does not exist in the current directory."
+if [ ! $(ls ${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}) ]; then
+	echo "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT} does not exist."
 	echo "Please download it or move it to the appropriate directory."
 	echo "You can use the ${SB_PKG}.get-SB.sh script to automate this."
 	exit 1;
@@ -47,7 +47,7 @@ fi
 rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
 mkdir -p "${BUILDD}/"
 cd "${BUILDD}/"
-ar p "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.deb" "data.tar.xz" | tar xJv || exit 1
+ar p "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}" "data.tar.xz" | tar xJv || exit 1
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 .
@@ -63,8 +63,3 @@ mv "${BUILDD}/usr/share/min/LICENSE" "${BUILDD}/usr/share/doc/min/LICENSE"
 # creating package
 cd "${BUILDD}"
 /sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${ARCH}-JSB.txz"
-
-# ending
-echo ""
-echo "Slackbuild ran through. Install with:"
-echo "upgradepkg --install-new ${TRG}/${PKGNAME-${VERSION}_${ARCH}-JSB.txz"

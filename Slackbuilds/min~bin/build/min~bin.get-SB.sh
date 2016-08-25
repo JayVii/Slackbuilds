@@ -17,13 +17,13 @@ SB_SOURCE="https://github.com/minbrowser/min/releases/download/v${SB_VER}/min_${
 
 echo "Slackbuild for ${SB_PKG}, version ${SB_VER} on ${SB_ARCH} architecture."
 echo "=========="
-echo ""
 
 #### DOWNLOAD ####
 if [ "${SB_BUILD}" = "build-existing" ]; then
 	echo "User claims that Slackbuild and Source already exist in"
 	echo "${SB_DIR}"
 	echo "Skipping Download!"
+	echo "=========="
 else
 	echo "Downloading..."
 	echo "using this Slackbuild-directory:"
@@ -31,10 +31,13 @@ else
 	echo "=========="
 	sleep 2
 	mkdir -p "$SB_DIR"
+	echo ""
 	echo "downloading slackbuild..."
 	wget -nv "$SB_REPO/raw/master/Slackbuilds/${SB_PKG}/build/${SB_PKG}.SlackBuild" -O "${SB_DIR}/${SB_PKG}.SlackBuild"
+	echo ""
 	echo "downloading description..."
 	wget -nv "$SB_REPO/raw/master/Slackbuilds/${SB_PKG}/build/${SB_PKG}.desc" -O "${SB_DIR}/${SB_PKG}.desc"
+	echo ""
 	echo "downloading package-source..."
 	wget -nv "$SB_SOURCE" -O "${SB_DIR}/${SB_PKG}-${SB_VER}_${SB_ARCH}-source.${SB_EXT}"
 	ls -l "$SB_DIR"

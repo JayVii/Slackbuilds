@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler----------------------------------------------------|
+min~bin min~bin (repackaged binary of the min webbrowser)
+min~bin
+min~bin meet min. a faster, smarter web browser.
+min~bin built on top of electron and nodejs. featuring instant-search,
+min~bin effortless tab-managing, built-in adblock, minimal design
+min~bin opensource and available from github
+min~bin https://github.com/minbrowser/min
+min~bin
+min~bin
+min~bin Homepage: https://minbrowser.github.io/min/
+min~bin
+
