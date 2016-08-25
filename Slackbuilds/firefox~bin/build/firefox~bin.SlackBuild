@@ -20,7 +20,7 @@ SB_PKG="firefox~bin"
 SB_EXT="tar.bz2"
 PKGNAME="firefox-bin"
 VERSION="48.0.2"
-ARCH="$(uname -m)"
+SB_ARCH="$(uname -m)"
 case "$ARCH" in
 	i?86) ARCH="linux" ;;
 	x86_64) ARCH="linux64" ;;
@@ -29,25 +29,25 @@ esac
 
 CWD="$(pwd)"
 TRG="/tmp"
-BUILDD="${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+BUILDD="${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
 
 if [ ! "$(whoami)" = "root" ]; then
 	echo "ERROR!"
 	echo "This script has to be run as root."
 	exit 1;
 fi
-if [ ! $(ls ${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}) ]; then
-	echo "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT} does not exist."
+if [ ! $(ls ${CWD}/${SB_PKG}-${VERSION}_${SB_ARCH}-source.${SB_EXT}) ]; then
+	echo "${CWD}/${SB_PKG}-${VERSION}_${SB_ARCH}-source.${SB_EXT} does not exist."
 	echo "Please download it or move it to the appropriate directory."
 	echo "You can use the ${SB_PKG}.get-SB.sh script to automate this."
 	exit 1;
 fi
 
 # extract
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
 mkdir -p "${BUILDD}/"
 cd "${BUILDD}/"
-tar xfjv "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}"
+tar xfjv "${CWD}/${SB_PKG}-${VERSION}_${SB_ARCH}-source.${SB_EXT}"
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 .
@@ -76,8 +76,8 @@ echo "Categories=Application;Network;" >> "${BUILDD}/usr/share/applications/fire
 
 # creating package
 cd "${BUILDD}"
-/sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${ARCH}-JSB.txz"
+/sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${SB_ARCH}-JSB.txz"
 
 # cleaning
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-JSB"
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-JSB"
