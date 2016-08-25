@@ -1,0 +1,83 @@
+#!/bin/sh
+
+# JayVii <janwey.git@gmail.com> (https://notabug.org/jayvii/Slackbuilds)
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that it still licensed under the GNU Public License 2
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+SB_PKG="firefox~bin"
+SB_EXT="tar.bz2"
+PKGNAME="firefox-bin"
+VERSION="48.0.2"
+ARCH="$(uname -m)"
+case "$ARCH" in
+	i?86) ARCH="linux" ;;
+	x86_64) ARCH="linux64" ;;
+	*) echo "There is no package for your architecture: $(uname -m)." ; exit 1 ;;
+esac
+
+CWD="$(pwd)"
+TRG="/tmp"
+BUILDD="${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+
+if [ ! "$(whoami)" = "root" ]; then
+	echo "ERROR!"
+	echo "This script has to be run as root."
+	exit 1;
+fi
+if [ ! $(ls ${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}) ]; then
+	echo "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT} does not exist."
+	echo "Please download it or move it to the appropriate directory."
+	echo "You can use the ${SB_PKG}.get-SB.sh script to automate this."
+	exit 1;
+fi
+
+# extract
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+mkdir -p "${BUILDD}/"
+cd "${BUILDD}/"
+tar xfjv "${CWD}/${SB_PKG}-${VERSION}_${ARCH}-source.${SB_EXT}"
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+chmod 0755 .
+
+# description
+mkdir -p "${BUILDD}/install"
+cat "$CWD/${SB_PKG}.desc" > "${BUILDD}/install/slack-desc"
+
+# creating structure
+mkdir -p "${BUILDD}/opt"
+mkdir -p "${BUILDD}/usr/share/applications"
+mkdir -p "${BUILDD}/usr/bin"
+mv "${BUILDD}/firefox" "${BUILDD}/opt/firefox-bin"
+ln -s "${BUILDD}/opt/firefox-bin/firefox" "${BUILDD}/usr/bin/firefox-bin"
+
+# creating .desktop
+touch "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "[Desktop Entry]" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Name=Firefox" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Comment=Web Browser (-bin version)" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Exec=/opt/firefox-bin/firefox" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Icon=firefox" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Type=Application" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+echo "Categories=Application;Network;" >> "${BUILDD}/usr/share/applications/firefox-bin.desktop"
+
+# creating package
+cd "${BUILDD}"
+/sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${ARCH}-JSB.txz"
+
+# cleaning
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-JSB"
