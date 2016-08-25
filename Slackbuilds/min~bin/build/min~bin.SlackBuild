@@ -59,7 +59,10 @@ cat "$CWD/${SB_PKG}.desc" > "${BUILDD}/install/slack-desc"
 # misc
 mv "${BUILDD}/usr/share/min/LICENSE" "${BUILDD}/usr/share/doc/min/LICENSE"
 
-
 # creating package
 cd "${BUILDD}"
 /sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${ARCH}-JSB.txz"
+
+# cleaning
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-build"
+rm -rf "${TRG}/${SB_PKG}-${VERSION}_${ARCH}-SB"
