@@ -19,17 +19,16 @@
 SB_PKG="firefox-bin"
 SB_EXT="tar.bz2"
 PKGNAME="firefox-bin"
-VERSION="48.0.2"
+VERSION="54.0"
 SB_ARCH="$(uname -m)"
-case "$ARCH" in
+case "$SB_ARCH" in
 	i?86) ARCH="linux" ;;
 	x86_64) ARCH="linux64" ;;
 	*) echo "There is no package for your architecture: $(uname -m)." ; exit 1 ;;
 esac
 
 CWD="$(pwd)"
-TRG="/tmp"
-BUILDD="${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
+BUILDD="/tmp/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
 
 if [ ! "$(whoami)" = "root" ]; then
 	echo "ERROR!"
@@ -44,7 +43,7 @@ if [ ! $(ls ${CWD}/${SB_PKG}-${VERSION}_${SB_ARCH}-source.${SB_EXT}) ]; then
 fi
 
 # extract
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
+rm -rf "/tmp/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
 mkdir -p "${BUILDD}/"
 cd "${BUILDD}/"
 tar xfjv "${CWD}/${SB_PKG}-${VERSION}_${SB_ARCH}-source.${SB_EXT}"
@@ -76,8 +75,8 @@ echo "Categories=Application;Network;" >> "${BUILDD}/usr/share/applications/fire
 
 # creating package
 cd "${BUILDD}"
-/sbin/makepkg -l y -c n "${TRG}/${PKGNAME}-${VERSION}_${SB_ARCH}-JSB.txz"
+/sbin/makepkg -l y -c n "/tmp/${PKGNAME}-${VERSION}_${SB_ARCH}-JSB.txz"
 
 # cleaning
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
-rm -rf "${TRG}/${SB_PKG}-${VERSION}_${SB_ARCH}-JSB"
+rm -rf "/tmp/${SB_PKG}-${VERSION}_${SB_ARCH}-build"
+rm -rf "/tmp/${SB_PKG}-${VERSION}_${SB_ARCH}-JSB"
