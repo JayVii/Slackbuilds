@@ -7,7 +7,7 @@ case "$SB_ARCH" in
 	x86_64) DL_ARCH="linux64" ;;
 	*) echo "There is no package for your architecture: $(uname -m)." ; exit 1 ;;
 esac
-SB_PKG="firefox~bin"
+SB_PKG="firefox-bin"
 SB_VER="48.0.2"
 SB_EXT="tar.bz2"
 SB_REPO="https://notabug.org/jayvii/Slackbuilds"
